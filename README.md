@@ -7,6 +7,6 @@
 </head>
 <body>
            <h1>Website</h1>
-           <p1>This website is created by me </p1>
+           <p1>This is a simple web page created using only HTML. </p1>
 </body>
 </html>
