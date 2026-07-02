@@ -1,12 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home - Simple Site</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
-           <h1>Website</h1>
-           <p1>This is a simple web page created using only HTML. </p1>
+  <header>
+    <div class="topbar">
+      <div class="brand">
+        <span class="brand-mark">🍴</span>
+        <div>
+          <h1>Food Gallery</h1>
+          <p>Lightweight frontend showcase for favorite dishes.</p>
+        </div>
+      </div>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="flower.html">Favorite Food</a>
+        <a href="catalog.html">Catalog</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Fresh Frontend</span>
+        <h2>Enjoy a modern food gallery experience.</h2>
+        <p>Browse featured meals, preview your own food photos locally, and enjoy a clean responsive layout.</p>
+        <a class="btn" href="flower.html">View Favorites</a>
+      </div>
+      <div class="hero-preview">
+        <div class="preview-card">
+          <img src="https://www.vegrecipesofindia.com/wp-content/uploads/2020/11/pizza-recipe-2-500x500.jpg" alt="Pizza">
+          <div class="preview-copy">
+            <h3>Pizza</h3>
+            <p>Cheesy comfort food with vibrant toppings.</p>
+          </div>
+        </div>
+        <div class="preview-card">
+          <img src="https://maayeka.com/wp-content/uploads/2025/10/butter-naan-tawa-naan-1-of-1.jpg" alt="Naan">
+          <div class="preview-copy">
+            <h3>Naan</h3>
+            <p>Soft flatbread for every curry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="content">
+    <section class="highlights">
+      <div class="highlight-card">
+        <h3>Clean Design</h3>
+        <p>All the interface is static and works entirely in the browser.</p>
+      </div>
+      <div class="highlight-card">
+        <h3>Instant Preview</h3>
+        <p>Upload a photo and see it appear immediately without a backend.</p>
+      </div>
+      <div class="highlight-card">
+        <h3>Responsive Layout</h3>
+        <p>Looks great on mobile, tablet, and desktop screens.</p>
+      </div>
+    </section>
+
+    <div class="upload-section">
+      <div class="upload-left">
+        <h3>Preview Your Food Photo</h3>
+        <p>Select an image and caption to preview it instantly in the gallery below.</p>
+      </div>
+      <form id="photoForm" class="photo-form">
+        <input type="text" name="caption" placeholder="Photo caption" required>
+        <input type="file" name="photo" accept="image/*" required>
+        <button type="submit" class="btn">Preview Photo</button>
+      </form>
+      <p id="uploadMessage" class="upload-message"></p>
+    </div>
+
+    <div class="container" id="photoGallery"></div>
+  </main>
+
+  <footer>
+    © 2026 Simple Website
+  </footer>
+
+  <script>
+    const photoForm = document.getElementById('photoForm');
+    const photoGallery = document.getElementById('photoGallery');
+    const uploadMessage = document.getElementById('uploadMessage');
+
+    photoForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      const fileInput = photoForm.querySelector('input[name="photo"]');
+      const captionInput = photoForm.querySelector('input[name="caption"]');
+      const file = fileInput.files[0];
+      const caption = captionInput.value.trim() || 'Untitled Photo';
+
+      if (!file) {
+        uploadMessage.textContent = 'Please select a photo to preview.';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = () => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
+          <img src="${reader.result}" alt="${caption}">
+          <h3>${caption}</h3>
+          <p>This photo is shown locally as a preview.</p>
+        `;
+        photoGallery.prepend(card);
+        uploadMessage.textContent = 'Photo preview added locally.';
+        photoForm.reset();
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
 </body>
 </html>
